@@ -9,3 +9,8 @@ jobs:
       - run: echo "job triggered by ${{ github.event_name }}"
       - name: checkout
         uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.23.3"
+      - name: running tests
+        run: go test ./...
