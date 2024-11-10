@@ -1,0 +1,8 @@
+name: basic CI
+on:
+  - push
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "job triggered by ${{ github.event_name }}"
