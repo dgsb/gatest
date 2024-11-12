@@ -1,8 +1,24 @@
 name: basic CI
 on:
-  - push
+  pull_request:
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - run: echo "job triggered by ${{ github.event_name }}"
+      - name: checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-go@v4
+        with:
+          go-version: "1.23.3"
+      - name: checking go version
+        run: go version
+      - name: checking curl version
+        run: curl --version
+      - uses: ./.github/actions/setup-golangci-lint
+        name: install golangci-lint
+      - name: checking golangci version
+        run: golangci-lint version
+      - name: running tests
+        run: go test ./...

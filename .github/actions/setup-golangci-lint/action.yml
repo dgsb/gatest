@@ -1,0 +1,20 @@
+name: golangci-lint setup
+description: install the latest golangci-lint version
+runs:
+  using: "composite"
+  steps:
+    - name: downloading latest golangci-lint version
+      shell: bash
+      run: curl -L https://github.com/golangci/golangci-lint/releases/download/v1.62.0/golangci-lint-1.62.0-linux-amd64.tar.gz -o golangci-lint-1.62.0-linux-amd64.tar.gz
+    - run: gzip -d golangci-lint-1.62.0-linux-amd64.tar.gz
+      shell: bash
+      name: unzip archive
+    - name: extract archive
+      shell: bash
+      run: tar xvf golangci-lint-1.62.0-linux-amd64.tar
+    - name: move golangci-lint in PAHT
+      shell: bash
+      run: mv ./golangci-lint-1.62.0-linux-amd64/golangci-lint /usr/local/bin
+    - name: check version
+      shell: bash
+      run: which golangci-lint && golangci-lint version
